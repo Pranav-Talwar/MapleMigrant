@@ -1,50 +1,59 @@
 import { Hono } from 'hono'
-import { PrismaClient } from '@prisma/client'
-import { withAccelerate } from '@prisma/extension-accelerate'
+import { sign } from 'hono/jwt'
+import { getPrisma } from './prismaClient'
 
 type Env = {
   DATABASE_URL: string
+  JWT_SECRET:   string
 }
-
 
 const app = new Hono<{ Bindings: Env }>()
 
-const createPrisma = (databaseUrl: string) =>
-  new PrismaClient({
-    datasourceUrl: databaseUrl,
-  }).$extends(withAccelerate())
+app.get('/', c => c.text('Hono ✓  Prisma ✓'))
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
+/* ----------  SIGN-UP  ---------- */
+app.post('/api/v1/signup', async c => {
+  const prisma = getPrisma(c.env.DATABASE_URL)
+  const body   = await c.req.json()
+
+  try {
+    const user = await prisma.user.create({
+      data: {
+        email:    body.email,
+        name:     body.name,
+        password: body.password   // 🔒 hash in prod
+      }
+    })
+    const jwt = await sign({ id: user.id }, c.env.JWT_SECRET)
+    return c.json({ jwt })
+  } catch (err) {
+    return c.json(
+      { error: 'signup failed', details: (err as Error).message },
+      500
+    )
+  }
 })
 
-app.post('/api/v1/signup', async (c) => {
-  const prisma = createPrisma(c.env.DATABASE_URL)
+/* ----------  SIGN-IN  ---------- */
+app.post('/api/v1/signin', async c => {
+  const prisma = getPrisma(c.env.DATABASE_URL)
+  const body   = await c.req.json()
 
-  // 🔑 Use prisma or remove the assignment
-  // Example: await prisma.user.create(...)
-  // For now just a placeholder:
-  // await prisma.$disconnect()
+  try {
+    const user = await prisma.user.findUnique({ where: { email: body.email } })
 
-  return c.json({ message: 'User signed up successfully!' })
-})
+    if (!user || user.password !== body.password) {
+      return c.json({ error: 'invalid email or password' }, 401)
+    }
 
-app.post('/api/v1/signin', (c) => {
-  return c.json({ message: 'User logged in successfully!' })
-})
-
-app.post('/api/v1/blog', (c) => {
-  return c.json({ message: 'Blog post created successfully!' })
-})
-
-app.get('/api/v1/blog/:id', (c) => {
-  const id = c.req.param('id')
-  return c.json({ message: `Details of blog post with ID: ${id}` })
-})
-
-app.put('/api/v1/blog/:id', (c) => {
-  const id = c.req.param('id')
-  return c.json({ message: `Blog post with ID: ${id} updated successfully!` })
+    const jwt = await sign({ id: user.id }, c.env.JWT_SECRET)
+    return c.json({ jwt })
+  } catch (err) {
+    return c.json(
+      { error: 'signin failed', details: (err as Error).message },
+      500
+    )
+  }
 })
 
 export default app
