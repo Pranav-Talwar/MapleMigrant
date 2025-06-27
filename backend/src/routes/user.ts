@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { sign , verify } from 'hono/jwt'
 import { getPrisma } from '../prismaClient'
+import { signinInput, signupInput } from 'maplemigrant-common'
 
 type Env = {
   DATABASE_URL: string
@@ -13,7 +14,9 @@ export const userRouter = new Hono<{ Bindings: Env }>()
 userRouter.post('/signup', async c => {
   const prisma = getPrisma(c.env.DATABASE_URL)
   const body   = await c.req.json()
-
+    const {success} = signupInput.safeParse(body)   
+    if (!success) {
+      return c.json({ error: 'invalid input' }, 400, {message: 'Invalid input data'})}
   try {
     const user = await prisma.user.create({
       data: {
@@ -36,7 +39,9 @@ userRouter.post('/signup', async c => {
 userRouter.post('/signin', async c => {
   const prisma = getPrisma(c.env.DATABASE_URL)
   const body   = await c.req.json()
-
+   const {success} = signinInput.safeParse(body)   
+    if (!success) {
+      return c.json({ error: 'invalid input' }, 400, {message: 'Invalid input data'})}
   try {
     const user = await prisma.user.findUnique({ where: { email: body.email } })
 
