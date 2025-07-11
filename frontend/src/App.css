@@ -1,1 +1,54 @@
 @import "tailwindcss";
+/* Design tokens — MapleMigrant */
+/* styles.css – import once in main.tsx */
+:root {
+  --maple: #C8102E;
+}
+/* -------------------- global.css (add or append) -------------------- */
+/* ------------------------------------------------------------------
+   tailwind / global extras  (e.g. src/index.css or globals.css)
+------------------------------------------------------------------ */
+
+/* paper background + noise */
+.paper-texture{
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+    linear-gradient(to bottom,#faf9f7,#f5f3ef);
+  background-blend-mode:overlay;
+}
+
+/* subtle page dots */
+.card-snippet{
+  -webkit-mask-image:linear-gradient(#000 78%,transparent);
+          mask-image:linear-gradient(#000 78%,transparent);
+}
+
+/* ornamented corners */
+.ornate-corner::before,
+.ornate-corner::after{
+  content:"❦";
+  position:absolute;
+  color:rgba(0,0,0,.18);
+  font-size:1.25rem;
+}
+.ornate-corner::before{top:-0.6rem;left:-0.6rem;transform:rotate(-35deg)}
+.ornate-corner::after {top:-0.6rem;right:-0.6rem;transform:rotate(35deg)}
+
+/* vintage inset shadow */
+.vintage-shadow{
+  box-shadow:3px 3px 6px rgba(0,0,0,0.08),
+             0 0 30px rgba(0,0,0,0.05) inset;
+}
+
+/* double border effect */
+.newspaper-border{
+  border:3px double #C8102E;
+}
+
+/* drop-cap */
+.first-letter::first-letter{
+  initial-letter:2;
+  -webkit-initial-letter:2;
+  margin-right:0.35rem;
+  color: #C8102E;
+}

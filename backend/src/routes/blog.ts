@@ -21,27 +21,46 @@ blogRouter.use('/*', async (c, next) => {
   const token      = authHeader.replace(/^Bearer\s+/i, '')
 
   // verify → unknown ; cast to expected shape
-  const user = (await verify(token, c.env.JWT_SECRET)) as { id?: string }
 
-  if (user?.id) {
+  try {
+    const user = (await verify(token, c.env.JWT_SECRET)) as { id?: string }
+
+    if (!user?.id) {
+      return c.json({ error: 'Unauthorized' }, 401)
+    }
+
     c.set('userId', user.id)
     await next()
-  } else {
-    return c.json({ error: 'Unauthorized' }, 401)
+  } catch (err) {
+    return c.json({ error: 'Invalid token' }, 401)
   }
 })
+
 // add pagination later
 blogRouter.get('/bulk', async c => {
   try {
-    const prisma = getPrisma(c.env.DATABASE_URL)
+    const prisma = getPrisma(c.env.DATABASE_URL);
 
-    const post = await prisma.post.findMany()
 
-    return c.json(post)
+    const posts = await prisma.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    return c.json(posts);
   } catch (err) {
-    return c.json({ error: (err as Error).message }, 500)
+    return c.json({ error: (err as Error).message }, 500);
   }
-})
+});
+
 
 blogRouter.post('/', async c => {
   try {
