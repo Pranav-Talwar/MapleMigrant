@@ -1,7 +1,4 @@
-/* ------------------------------------------------------------------
-   src/components/BlogCard.tsx
-   “New-spaper chic” card … minus fancy fonts
------------------------------------------------------------------- */
+/* -------------------- src/components/BlogCard.tsx -------------------- */
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -10,7 +7,8 @@ interface BlogCardProps {
   title: string;
   content: string;
   authorName: string;
-  category?: string;
+  /** optional ISO date (defaults → today) */
+  date?: string;
 }
 
 const BlogCard = ({
@@ -18,44 +16,56 @@ const BlogCard = ({
   title,
   content,
   authorName,
-  category = "Article",
+  date = new Date().toISOString(),
 }: BlogCardProps) => {
+  /* --- helpers --- */
   const snippet =
-    content.length > 180 ? `${content.slice(0, 180).trim()}…` : content;
+    content.length > 200 ? `${content.slice(0, 200).trim()}…` : content;
   const minutes = Math.ceil(content.length / 238);
 
+  /* avatar initials */
+  const initials = authorName
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
+
   return (
-    <Link to={`/blog/${id}`} className="group block">
-      <article
-        className="relative overflow-hidden rounded-xl newspaper-border  bg-white/70
-                   paper-texture vintage-shadow transition-transform duration-200
-                   hover:-translate-y-1 hover:shadow-lg ornate-corner"
-      >
-        {/* left rule */}
-        <div className="absolute inset-y-0 left-0 w-[3px] bg-[#C8102E]"></div>
+  <Link to={`/blog/${id}`} className="block">
+      <article className="flex flex-col gap-y-3 p-6 bg-white rounded-lg shadow-sm ring-1 ring-gray-400 hover:shadow-md transition">
+        {/* tag pill (static because no category field) */}
+      
 
-        {/* body */}
-        <div className="p-6 space-y-3">
-          <header className="flex items-center justify-between text-[11px] uppercase tracking-widest text-neutral-700">
-            <span>{category}</span>
-            <time className="italic lowercase">{minutes} min</time>
-          </header>
-
-          <h2
-            className="text-xl font-semibold text-neutral-900 first-letter
-                       group-hover:text-red-700 transition-colors line-clamp-2"
-          >
+        
+        {/* title + snippet */}
+        <div>
+          <h3 className="text-lg font-semibold leading-6 text-gray-900 hover:text-[#C8102E]">
             {title}
-          </h2>
-
-          <p className="text-sm leading-relaxed text-neutral-700 card-snippet">
+          </h3>
+          <p className="mt-3 line-clamp-2 text-sm leading-6 text-gray-600">
             {snippet}
           </p>
+        </div>
 
-          <footer className="flex items-center justify-between text-xs text-neutral-600 pt-3 border-t border-neutral-300/50">
-            <AuthorMeta name={authorName} />
-            <span className="italic">read ↗</span>
-          </footer>
+        {/* author row */}
+        <div className="mt-3 flex gap-x-2">
+          <span className="relative h-8 w-8 flex-none">
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full rounded-full ring-1 ring-inset ring-gray-900/10"
+            ></span>
+            {/* fallback initials */}
+            <span className="h-full w-full flex items-center justify-center rounded-full bg-neutral-200 text-sm font-semibold text-gray-600">
+              {initials}
+            </span>
+            
+          </span>
+       <div className="flex items-center gap-2 text-lg leading-6">
+  <span className="font-semibold text-gray-900">{authorName}</span>
+  <span className="flex items-center gap-x-2 text-sm text-gray-500" aria-hidden="true">•</span>
+  <span className="flex items-center gap-x-2 text-sm text-gray-500">{minutes} min&nbsp;read</span>
+</div>
+
         </div>
       </article>
     </Link>
@@ -63,24 +73,3 @@ const BlogCard = ({
 };
 
 export default BlogCard;
-
-/* ---------- small avatar helper ---------- */
-function AuthorMeta({ name }: { name: string }) {
-  const initials = name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((w) => w[0].toUpperCase())
-    .join("");
-
-  return (
-    <div className="flex items-center gap-2">
-      <div className="size-7 rounded-full border-2 border-neutral-400 flex items-center justify-center">
-        <span className="text-[11px] font-semibold text-neutral-700">
-          {initials}
-        </span>
-      </div>
-      <span>{name}</span>
-    </div>
-  );
-}

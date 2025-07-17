@@ -1,23 +1,22 @@
-/* -------------------- src/hooks/UseBlog.tsx -------------------- */
-import axios from "axios";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { Backend_URL } from "../config";
 
-type Blog = {
+export type SingleBlog = {
   id: string;
   title: string;
   content: string;
   author: { name: string };
 };
 
-function UseBlog() {
+export default function useBlogById(id: string) {
   const [loading, setLoading] = useState(true);
-  const [Blogs,  setBlogs]   = useState<Blog[]>([]);
+  const [blog, setBlog] = useState<SingleBlog | null>(null);
 
   useEffect(() => {
-    // ❶ — grab whatever Auth.tsx stored
-    const token = localStorage.getItem("token");
+    if (!id) return;
 
+    const token = localStorage.getItem("token");
     if (!token) {
       console.warn("No JWT in localStorage → redirect to /signin?");
       setLoading(false);
@@ -25,25 +24,24 @@ function UseBlog() {
     }
 
     axios
-      .get(`${Backend_URL}/api/v1/blog/bulk`, {
+      .get(`${Backend_URL}/api/v1/blog/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
-        setBlogs(res.data);
-        setLoading(false);
+          console.log("⇣ single-post payload", res.data);   // ← look here
+  setBlog(res.data);
+  setLoading(false);
       })
+
+      
       .catch((err) => {
-        console.error("Error fetching blogs:", err);
+        console.error("Error fetching blog:", err);
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
-  return { loading, Blogs };
+  return { loading, blog };
 }
-export default UseBlog; 
-
-
-

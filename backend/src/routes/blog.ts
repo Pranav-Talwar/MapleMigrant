@@ -112,15 +112,18 @@ blogRouter.put('/', async c => {
 
 blogRouter.get('/:id', async c => {
   try {
-    const prisma = getPrisma(c.env.DATABASE_URL)
-    const { id } = c.req.param()
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const { id } = c.req.param();
 
     const post = await prisma.post.findUnique({
       where: { id },
-    })
+      include: {
+        author: { select: { name: true } },   // ← critical line
+      },
+    });
 
-    return c.json(post)
+    return c.json(post);
   } catch (err) {
-    return c.json({ error: (err as Error).message }, 500)
+    return c.json({ error: (err as Error).message }, 500);
   }
-})
+});

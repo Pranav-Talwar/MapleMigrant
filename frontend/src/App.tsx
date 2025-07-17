@@ -1,22 +1,47 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import Signup from './pages/Signup'
-// import Signin from './pages/Signin'
+
 import Blog from "./pages/Blog";
 import Blogs from "./pages/Blogs";
 import Auth from "./components/Auth";
 import "./app.css";
 import AppBar from "./components/AppBar";
-
+import Home from "./pages/Home";
+import CreateBlog from "./pages/CreateBlog";
+import RequireAuth from "./components/RequireAuth";
 export default function App() {
   return (
     <BrowserRouter>
-      <AppBar /> 
-      
+      <AppBar />
+
       <Routes>
         <Route path="/signup" element={<Auth type="signup" />} />
         <Route path="/signin" element={<Auth type="signin" />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blog/:Id" element={<Blog />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/Create" element={<CreateBlog />} />
+        <Route
+          path="/blogs"
+          element={
+            <RequireAuth>
+              <Blogs />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/blog/:id"
+          element={
+            <RequireAuth>
+              <Blog />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/create"
+          element={
+            <RequireAuth>
+              <CreateBlog />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
