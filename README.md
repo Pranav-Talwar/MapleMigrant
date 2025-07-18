@@ -11,9 +11,10 @@
 | Area / Goal           | Solution & Impact                                                                                 |
 | --------------------- | -------------------------------------------------------------------------------------------------- |
 |**Real‑world domain, real constraints**  | Built to serve immigrants who rely on fast, reliable information.                |
-| **Blazing‑fast API**  | Runs on Cloudflare Workers (edge), so requests hit the nearest PoP. Typical response < **20 ms**.  |
+| **Blazing‑fast API**  | Runs on Cloudflare Workers (edge), so requests hit the nearest PoP. Typical response < **30 ms**.  |
 | **Type‑safety**       | One shared Zod schema → Prisma types → React hooks. <br>Zero `any`, fewer runtime bugs.            |
 | **Secure Auth**       | JWT (HS256) + bcrypt. Login endpoint rate‑limited to block brute‑force.                            |
+| **Skeleton Loading** | Instant “shimmer” placeholders while data fetches, so pages feel faster. |
 | **CI / CD**           | GitHub Actions lint + tests + type‑check, then Vercel preview URLs on every pull request.          |
 | **Accessible UI**     | WCAG‑AA colour contrast, keyboard‑friendly, screen‑reader labels. Lighthouse a11y **95+**.         |
 
@@ -29,11 +30,10 @@
 ---
 
 ## 📸 Gallery
-| Landing Page | Blog Feed | Single Post | Create Post |
-| ------------ | --------- | ---------- | ----------- |
-| ![](./assets/screenshot-landing.png) | ![](./assets/screenshot-feed.png) | ![](./assets/screenshot-post.png) | ![](./assets/screenshot-create.png) |
+| Landing Page | Blog Feed | Single Post | Create Post | Authentication |
+| ------------ | --------- | ----------- | ----------- | -------------- |
+| ![](./assets/Landing.png) | ![](./assets/Blogs.png) | ![](./assets/SingleBlog.png) | ![](./assets/Create.png) |  ![](./assets/Signin.png) }
 
-> **Tip:** Replace the placeholder images (`./assets/…`) with your own screenshots or GIFs.
 
 ---
 
