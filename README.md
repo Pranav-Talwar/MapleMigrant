@@ -25,7 +25,7 @@
 | ---------------- | ---------------------------------------------------------------------------------------------------------- |
 | **Frontend**     | React.js · TypeScript · Tailwind CSS · shadcn/ui                                                    |
 | **Backend**      | [Hono](https://hono.dev/) (Cloudflare Workers) · JWT Auth                                                  |
-| **Common**      | Zod Validation                                                 |
+| **Common**      | Zod validation                                                 |
 | **Database**     | PostgreSQL (via Aiven) · Prisma ORM                                                                         |
 
 ---
