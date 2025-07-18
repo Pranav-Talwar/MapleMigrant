@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Blog from "./pages/Blog";
 import Blogs from "./pages/Blogs";
 import Auth from "./components/Auth";
-import "./app.css";
+import "./App.css";
 import AppBar from "./components/AppBar";
 import Home from "./pages/Home";
 import CreateBlog from "./pages/CreateBlog";
