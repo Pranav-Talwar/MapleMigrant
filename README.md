@@ -23,8 +23,8 @@
 ## 🛠️ Tech Stack
 | Layer            | Stack                                                                                                      |
 | ---------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Frontend**     | React 18 · TypeScript · Tailwind CSS · shadcn/ui                                                    |
-| **Backend**      | [Hono](https://hono.dev/) (Cloudflare Workers) · JWT Auth                                                  |
+| **Frontend**     | React.js · TypeScript · Tailwind CSS · shadcn/ui                                                    |
+| **Backend**      | [Hono](https://hono.dev/) (Cloudflare Workers) · JWT Auth · Zod validation                                                  |
 | **Database**     | PostgreSQL (via Aiven) · Prisma ORM                                                                         |
 
 ---
