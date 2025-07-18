@@ -24,7 +24,7 @@
 | Layer            | Stack                                                                                                      |
 | ---------------- | ---------------------------------------------------------------------------------------------------------- |
 | **Frontend**     | React.js · TypeScript · Tailwind CSS · shadcn/ui                                                    |
-| **Backend**      | [Hono](https://hono.dev/) (Cloudflare Workers) · JWT Auth · Zod validation                                                  |
+| **Backend**      | [Hono](https://hono.dev/) (Cloudflare Workers) · JWT Auth · Zod                                                   |
 | **Database**     | PostgreSQL (via Aiven) · Prisma ORM                                                                         |
 
 ---
