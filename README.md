@@ -1,7 +1,7 @@
 # 🍁 MapleMigrant – Your Canadian Immigration Companion  
 *A modern, community‑driven blogging platform built with React, Tailwind CSS, Hono, and Prisma.*
 
-![](./assets/Landing.png)
+![](./assets/Banner.png)
 
 > **Mission:** Empower newcomers, immigrants, international students, and expats with real stories, expert guidance, and a welcoming Canadian community.
 
@@ -32,7 +32,7 @@
 ## 📸 Gallery
 | Landing Page | Blog Feed | Single Post | Create Post | Authentication |
 | ------------ | --------- | ----------- | ----------- | -------------- |
-| ![](./assets/Landing.png) | ![](./assets/Blogs.png) | ![](./assets/SingleBlog.png) | ![](./assets/Create.png) |  ![](./assets/Signin.png) }
+| ![](./assets/Landing.png) | ![](./assets/Blogs.png) | ![](./assets/SingleBlog.png) | ![](./assets/Create.png) |  ![](./assets/Signin.png) |
 
 
 ---
