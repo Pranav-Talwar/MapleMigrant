@@ -14,6 +14,8 @@
 | **Blazing‑fast API**  | Runs on Cloudflare Workers (edge), so requests hit the nearest PoP. Typical response < **30 ms**.  |
 | **Type‑safety**       | One shared Zod schema → Prisma types → React hooks. <br>Zero `any`, fewer runtime bugs.            |
 | **Secure Auth**       | JWT (HS256) + bcrypt. Login endpoint rate‑limited to block brute‑force.                            |
+| **maplemigrant-common** | Published Zod schema package (npm) used by both API and React hooks.                       |
+
 | **Skeleton Loading** | Instant “shimmer” placeholders while data fetches, so pages feel faster. |
 | **CI / CD**           | GitHub Actions lint + tests + type‑check, then Vercel preview URLs on every pull request.          |
 | **Accessible UI**     | WCAG‑AA colour contrast, keyboard‑friendly, screen‑reader labels. Lighthouse a11y **95+**.         |
