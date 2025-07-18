@@ -25,7 +25,7 @@
 | ---------------- | ---------------------------------------------------------------------------------------------------------- |
 | **Frontend**     | React.js · TypeScript · Tailwind CSS · shadcn/ui                                                    |
 | **Backend**      | [Hono](https://hono.dev/) (Cloudflare Workers) · JWT Auth                                                  |
-| **Common**      | Zod validation                                                 |
+| **Common**      | Zod validation  · https://img.shields.io/npm/v/maplemigrant-common.svg?color=cb3837(https://www.npmjs.com/package/maplemigrant-common)                                          |
 | **Database**     | PostgreSQL (via Aiven) · Prisma ORM                                                                         |
 
 ---
