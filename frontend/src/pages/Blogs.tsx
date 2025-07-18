@@ -1,4 +1,3 @@
-import React from "react";
 import BlogCard from "../components/BlogCard";
 import HeroBanner from "../components/HeroBanner";
 import UseBlog from "../hooks/UseBlog";

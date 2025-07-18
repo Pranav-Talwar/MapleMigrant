@@ -79,7 +79,7 @@ export default function Auth({ type }: { type: "signin" | "signup" }) {
               label="Full name"
               placeholder="Jane Doe"
               onChange={handleChange("name")}
-              value={inputs.name}
+              value={inputs.name || ""}
             />
           )}
           <LabelledInput
@@ -87,7 +87,7 @@ export default function Auth({ type }: { type: "signin" | "signup" }) {
             type="email"
             placeholder="you@example.com"
             onChange={handleChange("email")}
-            value={inputs.email}
+            value={inputs.email }
           />
           <LabelledInput
             label="Password"

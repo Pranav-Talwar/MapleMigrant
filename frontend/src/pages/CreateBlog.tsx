@@ -8,7 +8,7 @@
    • Drop into src/pages/CreateBlog.tsx and add <Route path="/create" …/>
 ============================================================================ */
 
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Backend_URL } from "../config";
@@ -44,8 +44,12 @@ export default function CreateBlog() {
         }
       );
       navigate(`/blog/${res.data.id}`);
-    } catch (err: any) {
-      setError(err.response?.data?.error || "Failed to publish.");
+      } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.error || err.message || "Failed to publish.");
+      } else {
+        setError("Failed to publish.");
+      }
     } finally {
       setSubmitting(false);
     }

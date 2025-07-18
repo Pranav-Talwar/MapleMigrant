@@ -1,4 +1,3 @@
-import React from "react";
 
 /* Custom shimmer animation for skeletons */
 const shimmerStyle = {

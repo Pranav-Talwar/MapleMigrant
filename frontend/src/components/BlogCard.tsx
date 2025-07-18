@@ -1,5 +1,4 @@
 /* -------------------- src/components/BlogCard.tsx -------------------- */
-import React from "react";
 import { Link } from "react-router-dom";
 
 interface BlogCardProps {
@@ -16,7 +15,6 @@ const BlogCard = ({
   title,
   content,
   authorName,
-  date = new Date().toISOString(),
 }: BlogCardProps) => {
   /* --- helpers --- */
   const snippet =
@@ -63,7 +61,7 @@ const BlogCard = ({
        <div className="flex items-center gap-2 text-lg leading-6">
   <span className="font-semibold text-gray-900">{authorName}</span>
   <span className="flex items-center gap-x-2 text-sm text-gray-500" aria-hidden="true">•</span>
-  <span className="flex items-center gap-x-2 text-sm text-gray-500">{minutes} min&nbsp;read</span>
+  <span className="flex items-center gap-x-2 text-sm text-gray-500">{minutes} min&nbsp;read</span>
 </div>
 
         </div>

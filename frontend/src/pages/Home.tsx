@@ -1,5 +1,4 @@
 // MapleMigrant Landing Page – Levelled Up!
-import React from "react";
 import { Link } from "react-router-dom";
 
 /* Dummy Featured Blogs */
